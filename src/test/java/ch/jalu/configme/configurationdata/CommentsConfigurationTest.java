@@ -2,10 +2,7 @@ package ch.jalu.configme.configurationdata;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
@@ -56,7 +53,7 @@ class CommentsConfigurationTest {
         Map<String, List<String>> originalMap = new HashMap<>();
         originalMap.put("one", Arrays.asList("one", "1"));
         originalMap.put("two", Arrays.asList("two", "2"));
-        CommentsConfiguration conf = new CommentsConfiguration(originalMap);
+        CommentsConfiguration conf = new CommentsConfiguration(originalMap, Collections.emptyList());
 
         // when
         conf.setComment("three", "three", "3");

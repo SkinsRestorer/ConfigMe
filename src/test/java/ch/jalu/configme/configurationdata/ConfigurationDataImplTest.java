@@ -38,7 +38,7 @@ class ConfigurationDataImplTest {
             newProperty("toast", "Toaster"));
 
         // when
-        ConfigurationData configData = new ConfigurationDataImpl(properties, Collections.emptyMap());
+        ConfigurationData configData = new ConfigurationDataImpl(properties, Collections.emptyMap(), Collections.emptyList());
 
         // then
         assertThat(configData.getProperties(), containsAll(properties));
@@ -49,7 +49,7 @@ class ConfigurationDataImplTest {
     void shouldHaveImmutablePropertyList() {
         // given
         List<Property<?>> properties = Collections.singletonList(newProperty("test", ""));
-        ConfigurationData configData = new ConfigurationDataImpl(properties, Collections.emptyMap());
+        ConfigurationData configData = new ConfigurationDataImpl(properties, Collections.emptyMap(), Collections.emptyList());
 
         // when / then
         verifyException(() -> configData.getProperties().remove(0), UnsupportedOperationException.class);
@@ -62,7 +62,7 @@ class ConfigurationDataImplTest {
             newProperty("test", "Test"),
             newProperty("taste", "Taste"),
             newProperty("toast", "Toaster"));
-        ConfigurationData configData = new ConfigurationDataImpl(properties, Collections.emptyMap());
+        ConfigurationData configData = new ConfigurationDataImpl(properties, Collections.emptyMap(), Collections.emptyList());
 
         // when / then
         verifyException(() -> configData.setValue(properties.get(0), null),
@@ -74,7 +74,7 @@ class ConfigurationDataImplTest {
         // given
         // Explicitly make it a modifiable Map so we can check that it's not afterwards
         Map<String, List<String>> comments = new HashMap<>(createSampleCommentsMap());
-        ConfigurationData configurationData = new ConfigurationDataImpl(Collections.emptyList(), comments);
+        ConfigurationData configurationData = new ConfigurationDataImpl(Collections.emptyList(), comments, Collections.emptyList());
 
         // when
         Map<String, List<String>> result = configurationData.getAllComments();
@@ -87,7 +87,7 @@ class ConfigurationDataImplTest {
     @Test
     void shouldReturnCommentsForSections() {
         // given
-        ConfigurationData configurationData = new ConfigurationDataImpl(Collections.emptyList(), createSampleCommentsMap());
+        ConfigurationData configurationData = new ConfigurationDataImpl(Collections.emptyList(), createSampleCommentsMap(), Collections.emptyList());
 
         // when
         List<String> testComments = configurationData.getCommentsForSection("test");
@@ -104,7 +104,7 @@ class ConfigurationDataImplTest {
     void shouldThrowForUnknownProperty() {
         // given
         List<Property<?>> properties = Collections.singletonList(newProperty("test", "Test"));
-        ConfigurationData configurationData = new ConfigurationDataImpl(properties, Collections.emptyMap());
+        ConfigurationData configurationData = new ConfigurationDataImpl(properties, Collections.emptyMap(), Collections.emptyList());
         Property<Integer> nonExistentProperty = newProperty("my.bogus.path", 5);
 
         // when / then
@@ -115,7 +115,7 @@ class ConfigurationDataImplTest {
     @Test
     void shouldReturnValuesMap() {
         // given
-        ConfigurationDataImpl configurationData = new ConfigurationDataImpl(Collections.emptyList(), Collections.emptyMap());
+        ConfigurationDataImpl configurationData = new ConfigurationDataImpl(Collections.emptyList(), Collections.emptyMap(), Collections.emptyList());
 
         // when
         int initialValuesSize = configurationData.getValues().size();
@@ -138,7 +138,7 @@ class ConfigurationDataImplTest {
         given(property2.determineValue(reader)).willReturn(PropertyValue.withValidValue(3.14159));
         given(property2.isValidValue(anyDouble())).willReturn(true);
 
-        ConfigurationData configurationData = new ConfigurationDataImpl(Arrays.asList(property1, property2), Collections.emptyMap());
+        ConfigurationData configurationData = new ConfigurationDataImpl(Arrays.asList(property1, property2), Collections.emptyMap(), Collections.emptyList());
 
         // when
         configurationData.initializeValues(reader);
@@ -159,7 +159,7 @@ class ConfigurationDataImplTest {
         given(property2.determineValue(reader)).willReturn(PropertyValue.withValueRequiringRewrite(3.14159));
         given(property2.isValidValue(anyDouble())).willReturn(true);
 
-        ConfigurationData configurationData = new ConfigurationDataImpl(Arrays.asList(property1, property2), Collections.emptyMap());
+        ConfigurationData configurationData = new ConfigurationDataImpl(Arrays.asList(property1, property2), Collections.emptyMap(), Collections.emptyList());
 
         // when
         configurationData.initializeValues(reader);
