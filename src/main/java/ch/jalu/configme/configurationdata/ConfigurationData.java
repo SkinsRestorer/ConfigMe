@@ -48,6 +48,13 @@ public interface ConfigurationData {
     @NotNull Map<String, List<String>> getAllComments();
 
     /**
+     * Returns the footer comments registered to this configuration data.
+     *
+     * @return read-only view of footer comments
+     */
+    @NotNull List<String> getFooterComments();
+
+    /**
      * Initializes the values of all {@link #getProperties known properties} based on the provided reader.
      * Clears any already existing values.
      *

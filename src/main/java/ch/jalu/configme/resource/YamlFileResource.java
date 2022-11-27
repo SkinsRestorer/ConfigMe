@@ -66,6 +66,13 @@ public class YamlFileResource implements PropertyResource {
                 final Object exportValue = getExportValue(property, configurationData);
                 exportValue(writer, pathTraverser, Arrays.asList(property.getPath().split("\\.")), exportValue);
             }
+            for (String footerComment : configurationData.getFooterComments()) {
+                if (footerComment.startsWith("\n")) {
+                    writer.append(footerComment);
+                } else {
+                    writer.append("\n").append("# ").append(footerComment);
+                }
+            }
             writer.append("\n");
             writer.flush();
         } catch (IOException e) {
@@ -143,13 +150,14 @@ public class YamlFileResource implements PropertyResource {
         }
 
         String lineStart = pathElement.isFirstElement() ? "" : "\n";
-        String commentStart = indent(indentation) + "# ";
+        String indent = indent(indentation);
+        String commentStart = indent + "# ";
         for (String comment : pathElement.getComments()) {
             writer.append(lineStart);
             lineStart = "\n";
 
             if (!"\n".equals(comment)) {
-                writer.append(commentStart)
+                writer.append(comment.startsWith("\n") ? indent : commentStart)
                       .append(comment);
             }
         }

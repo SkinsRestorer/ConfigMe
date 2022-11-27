@@ -21,6 +21,7 @@ public class ConfigurationDataImpl implements ConfigurationData {
 
     private final @NotNull List<Property<?>> properties;
     private final @NotNull Map<String, List<String>> allComments;
+    private final @NotNull List<String> footerComments;
     private final @NotNull Map<String, Object> values;
     private boolean allPropertiesValidInResource;
 
@@ -30,9 +31,10 @@ public class ConfigurationDataImpl implements ConfigurationData {
      * @param allProperties all known properties
      * @param allComments map of comments by path
      */
-    protected ConfigurationDataImpl(@NotNull List<? extends Property<?>> allProperties, @NotNull Map<String, List<String>> allComments) {
+    protected ConfigurationDataImpl(@NotNull List<? extends Property<?>> allProperties, @NotNull Map<String, List<String>> allComments, @NotNull List<String> footerComments) {
         this.properties = Collections.unmodifiableList(allProperties);
         this.allComments = Collections.unmodifiableMap(allComments);
+        this.footerComments = Collections.unmodifiableList(footerComments);
         this.values = new HashMap<>();
     }
 
@@ -49,6 +51,11 @@ public class ConfigurationDataImpl implements ConfigurationData {
     @Override
     public @NotNull Map<String, List<String>> getAllComments() {
         return allComments;
+    }
+
+    @Override
+    public @NotNull List<String> getFooterComments() {
+        return footerComments;
     }
 
     @Override

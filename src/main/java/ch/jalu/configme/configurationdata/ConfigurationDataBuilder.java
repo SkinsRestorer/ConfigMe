@@ -58,12 +58,12 @@ public class ConfigurationDataBuilder {
     }
 
     public static @NotNull ConfigurationData createConfiguration(@NotNull List<? extends Property<?>> properties) {
-        return new ConfigurationDataImpl(properties, Collections.emptyMap());
+        return new ConfigurationDataImpl(properties, Collections.emptyMap(), Collections.emptyList());
     }
 
     public static @NotNull ConfigurationData createConfiguration(@NotNull List<? extends Property<?>> properties,
                                                                  @NotNull CommentsConfiguration commentsConfiguration) {
-        return new ConfigurationDataImpl(properties, commentsConfiguration.getAllComments());
+        return new ConfigurationDataImpl(properties, commentsConfiguration.getAllComments(), commentsConfiguration.getFooterComments());
     }
 
     /**
@@ -78,7 +78,7 @@ public class ConfigurationDataBuilder {
             collectProperties(clazz);
             collectSectionComments(clazz);
         }
-        return new ConfigurationDataImpl(propertyListBuilder.create(), commentsConfiguration.getAllComments());
+        return new ConfigurationDataImpl(propertyListBuilder.create(), commentsConfiguration.getAllComments(), commentsConfiguration.getFooterComments());
     }
 
     /**
