@@ -158,7 +158,7 @@ public class YamlFileResource implements PropertyResource {
 
             if (!"\n".equals(comment)) {
                 writer.append(comment.startsWith("\n") ? indent : commentStart)
-                      .append(comment);
+                      .append(comment.startsWith("\n") ? comment.substring(1) : comment);
             }
         }
     }
