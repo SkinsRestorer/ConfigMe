@@ -92,7 +92,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.11.2</version>
+                        <version>3.11.3</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -195,7 +195,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>2.4</version>
+            <version>2.5</version>
         </dependency>
 
         <!-- FindBugs, has implementation for @Nullable -->
