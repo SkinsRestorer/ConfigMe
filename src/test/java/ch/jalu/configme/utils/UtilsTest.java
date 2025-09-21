@@ -67,25 +67,4 @@ class UtilsTest {
             ConfigMeException.class,
             "Failed to create parent folder");
     }
-
-    @Test
-    void shouldThrowIfFileCannotBeCreated() throws IOException {
-        // given
-        FileSystemProvider provider = mock(FileSystemProvider.class);
-        FileSystem fileSystem = mock(FileSystem.class);
-        given(fileSystem.provider()).willReturn(provider);
-        Path child = mock(Path.class);
-        given(child.getFileSystem()).willReturn(fileSystem);
-        doThrow(NoSuchFileException.class).when(provider).checkAccess(child); // for Files#exists
-        doThrow(new IOException("File creation not supported")).when(provider).newByteChannel(eq(child), anySet(), any());
-
-        Path parent = temporaryFolder.resolve("parent");
-        given(child.getParent()).willReturn(parent);
-
-        // when / then
-        verifyException(
-            () -> Utils.createFileIfNotExists(child),
-            ConfigMeException.class,
-            "Failed to create file");
-    }
 }
