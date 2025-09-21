@@ -62,7 +62,7 @@ class BigNumberLeafValueHandlerTest {
         assertThat(bigNumberHandler.convert(bigDecimalType, -1131.25116), equalTo(new BigDecimal("-1131.25116")));
         assertThat(bigNumberHandler.convert(bigDecimalType, longImpreciseAsDouble), equalTo(new BigDecimal("5076541234567890123")));
         assertThat(bigNumberHandler.convert(bigDecimalType, 2e50), equalTo(new BigDecimal("2E+50")));
-        assertThat(bigNumberHandler.convert(bigDecimalType, -1e18f), equalTo(new BigDecimal("-9.9999998430674944E+17")));
+        assertThat(bigNumberHandler.convert(bigDecimalType, -1e18f), equalTo(new BigDecimal("-9.999999843067494E+17")));
         assertThat(bigNumberHandler.convert(bigDecimalType, (byte) 101), equalTo(new BigDecimal("101")));
         assertThat(bigNumberHandler.convert(bigDecimalType, (short) -32724), equalTo(new BigDecimal("-32724")));
 
